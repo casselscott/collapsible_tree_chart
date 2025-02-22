@@ -1,0 +1,109 @@
+{
+  "name": "Quantum Computing",
+  "children": [
+    {
+      "name": "Quantum Gate-Based Computing (Universal Question Computers)",
+      "children": [
+        {
+          "name": "IBM (IBM Quantum)",
+          "children": [
+            {
+              "name": "Developed the IBM Eagle (127 qubits) and Condor (1,121 qubits).",
+              "value": 3938
+            }
+          ]
+        },
+        {
+          "name": "Google (Quantum AI)",
+          "children": [
+            {
+              "name": " Achieved quantum supremacy in 2019 with Sycamore (54 qubits).",
+              "value": 3534
+            }
+          ]
+        },
+        {
+          "name": "Intel",
+          "children": [
+            {
+              "name": "Developing Horse Ridge and Tunnel Falls quantum chips.",
+              "value": 7074
+            }
+          ]
+        },
+        {
+          "name": "Rigetti Computing",
+          "children": [
+            {
+              "name": "A startup focusing on cloud-based quantum processors",
+              "value": 7074
+            }
+          ]
+        },
+
+        {
+          "name": "QuEra Computing",
+          "children": [
+            {
+              "name": "Developing neutral-atom-based quantum computers..",
+              "value": 7074
+            }
+          ]
+        },
+        {
+          "name": "Quantum Annealing",
+          "children": [
+            {
+              "name": "D-wave Systems - The Leader in Quantum",
+              "value": 17010
+            },
+            {
+              "name": "Fujitsu-Developed a Quantum -Inspired Digital Annealer",
+              "value": 5842
+            }
+          ]
+        },
+
+        {
+          "name": "Topological Quantum Computing",
+          "children": [
+            {
+              "name": "Microsoft – Developed Majorana 1 topological qubits based on their stationary qubit technology.",
+              "value": 1759
+            }
+          ]
+        },
+        {
+          "name": "Photonic Quantum Computing (Super Condutor Qubits)",
+          "children": [
+            {
+              "name": "PsiQuantum – Leading photonic quantum computing with a goal of building a 1 million-qubit system",
+              "value": 8833
+            },
+            {
+              "name": "Xanadu Quantum Technologies – Developed the Borealis photonic quantum computer.",
+              "value": 1732
+            },
+            {
+              "name": "ORCA Computing – Working on quantum computing using integrated photonics.",
+              "value": 3623
+            }
+          ]
+        },
+        {
+          "name": "Neutral Atom Quantum Computing  ",
+          "children": [
+            {
+              "name": "QuEra Computing – Built a 256-qubit neutral atom quantum computer.",
+              "value": 4116
+            },
+            {
+              "name": "Atom Computing – Working on quantum computers using nuclear spin states in atoms.",
+              "value": 4116
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
