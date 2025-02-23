@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Quantum Computing: Unlocking the Future, One Qubit at a Time</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quantum Technologies</title>
     <style>
       body {
         background-color: #000;
@@ -27,10 +26,27 @@
         text-align: center;
       }
 
+      .node circle {
+        fill: #1e1e1e;
+        stroke-width: 3px;
+        stroke: #ffcc00;
+        transition: all 0.3s ease;
+      }
+
+      .node:hover circle {
+        fill: #ffcc00;
+        stroke: white;
+      }
+
       .node text {
-        font-size: 14px;
+        font-size: 18px;
         fill: white;
         text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
+      }
+
+      .node .quantum-computing {
+        fill: rgb(246, 2, 165);
+        font-size: 30px;
       }
 
       .link {
@@ -39,15 +55,20 @@
         stroke-width: 2px;
         stroke-opacity: 0.6;
       }
+
+      .glow {
+        filter: drop-shadow(0px 0px 8px rgba(255, 255, 0, 0.8));
+      }
     </style>
   </head>
   <body>
     <h1>
-      Quantum Technology <br />
+      Quantum Technologies <br />
       Unlocking the Future, One Qubit at a Time." 🚀💡<br />
     </h1>
     <svg width="100%" height="100%"></svg>
 
+    <script src="https://d3js.org/d3.v6.min.js"></script>
     <script>
       const treeData = {
         name: "Quantum Computing",
@@ -168,45 +189,58 @@
         const nodeEnter = node
           .enter()
           .append("g")
-          .attr("class", "node")
+          .attr("class", "node glow")
           .attr("transform", (d) => `translate(${source.y0}, ${source.x0})`)
           .on("click", click);
 
-        nodeEnter.each(function (d) {
-          const group = d3.select(this);
-
-          if (d.data.logo) {
-            group
-              .append("image")
-              .attr("xlink:href", d.data.logo)
-              .attr("width", 30)
-              .attr("height", 30)
-              .attr("x", -15)
-              .attr("y", -15);
-          } else {
-            group
-              .append("circle")
-              .attr("r", 10)
-              .style("fill", "#ff5733")
-              .style("stroke", "#ffcc00")
-              .style("stroke-width", "3px");
-          }
-        });
+        nodeEnter
+          .filter((d) => !d.data.logo)
+          .append("circle")
+          .attr("r", 1e-6)
+          .style("fill", (d) => (d._children ? "#ff5733" : "#1e1e1e"));
 
         nodeEnter
           .append("text")
           .attr("dy", ".35em")
-          .attr("x", (d) => (d.children || d._children ? -20 : 20))
+          .attr("x", (d) => (d.children || d._children ? -15 : 15))
           .attr("text-anchor", (d) =>
             d.children || d._children ? "end" : "start"
           )
+          .attr("class", (d) =>
+            d.data.name === "Quantum Computing" ? "quantum-computing" : ""
+          )
           .text((d) => d.data.name);
+
+        nodeEnter
+          .filter((d) => d.data.logo)
+          .append("image")
+          .attr("xlink:href", (d) => d.data.logo)
+          .attr("x", -12)
+          .attr("y", -12)
+          .attr("width", 24)
+          .attr("height", 24);
 
         const nodeUpdate = nodeEnter.merge(node);
         nodeUpdate
           .transition()
           .duration(duration)
           .attr("transform", (d) => `translate(${d.y}, ${d.x})`);
+
+        nodeUpdate
+          .select("circle")
+          .attr("r", 10)
+          .style("fill", (d) => (d._children ? "#ff5733" : "#1e1e1e"))
+          .style("stroke", (d) => (d._children ? "#ffcc00" : "#ff00ff"));
+
+        const nodeExit = node
+          .exit()
+          .transition()
+          .duration(duration)
+          .attr("transform", (d) => `translate(${source.y}, ${source.x})`)
+          .remove();
+
+        nodeExit.select("circle").attr("r", 1e-6);
+        nodeExit.select("text").style("fill-opacity", 1e-6);
 
         const link = g.selectAll("path.link").data(links, (d) => d.id);
 
@@ -225,6 +259,16 @@
           .duration(duration)
           .attr("d", (d) => diagonal(d, d.parent));
 
+        const linkExit = link
+          .exit()
+          .transition()
+          .duration(duration)
+          .attr("d", (d) => {
+            const o = { x: source.x, y: source.y };
+            return diagonal(o, o);
+          })
+          .remove();
+
         nodes.forEach((d) => {
           d.x0 = d.x;
           d.y0 = d.y;
@@ -232,9 +276,9 @@
 
         function diagonal(s, d) {
           return `M ${s.y} ${s.x}
-              C ${(s.y + d.y) / 2} ${s.x},
-                ${(s.y + d.y) / 2} ${d.x},
-                ${d.y} ${d.x}`;
+                C ${(s.y + d.y) / 2} ${s.x},
+                  ${(s.y + d.y) / 2} ${d.x},
+                  ${d.y} ${d.x}`;
         }
 
         function click(event, d) {
